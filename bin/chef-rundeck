@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup ruby chef-rd-roles.rb >> /var/log/chef-rundeck.log 2>&1 &

@@ -1,0 +1,1 @@
+#Replace with your knife.rb, also place your client .pem file in this config folder as well.
