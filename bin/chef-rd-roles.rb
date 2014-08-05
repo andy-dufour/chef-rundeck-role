@@ -10,13 +10,14 @@ require 'chef/mixin/xml_escape'
 
 include Chef::Mixin::XMLEscape
 
-
+	set :bind, '0.0.0.0'
 	config = File.expand_path("../config/knife.rb",File.dirname( __FILE__))
 	Chef::Config.from_file(config)
 	puts Chef::Config.inspect
 	puts Dir.tmpdir
 
 	get "/role/:role" do |r|
+		content_type 'text/xml'
 		Chef::Log.info("Loading nodes for #{r}")
 		send_file build_xml(r)
 	end
@@ -24,6 +25,7 @@ include Chef::Mixin::XMLEscape
 
 	def build_xml(role)
 	begin
+		
 		query = Chef::Search::Query.new
 		servers = query.search(:node, "role:#{role}")[0]
 		puts servers.inspect
